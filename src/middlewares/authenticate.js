@@ -5,7 +5,6 @@ import getSessionCookie from "../utils/getSessionCookie.js";
 export default async function authenticate(req, res, next) {
   const token = getSessionCookie(req.headers.cookie);
 
-  console.log(token);
   if (!token) {
     return res.sendStatus(401);
   }

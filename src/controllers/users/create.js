@@ -2,6 +2,7 @@ import chalk from "chalk";
 import { users } from "../../config/database.js";
 import { hash } from "bcrypt";
 import { saltRounds } from "../../utils/constants.js";
+import internalError from "../../utils/internalError.js";
 
 export default async function createUser(req, res) {
   const { name, email, password } = req.body;
@@ -19,6 +20,6 @@ export default async function createUser(req, res) {
     res.status(201).send("OK");
   }
   catch (error) {
-    console.log(error);
+    internalError(error, res);
   }
 }

@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import { sessions } from "../../config/database.js";
 import { sessionCookieName } from "../../utils/constants.js";
+import internalError from "../../utils/internalError.js";
 
 export default async function signOut(req, res) {
   const { user } = res.locals;
@@ -12,6 +13,6 @@ export default async function signOut(req, res) {
     res.clearCookie(sessionCookieName).send("OK");
   }
   catch (error) {
-    console.log(error);
+    internalError(error, res);
   }
 }

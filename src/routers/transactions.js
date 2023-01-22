@@ -2,7 +2,7 @@ import { Router } from "express";
 import indexTransactions from "../controllers/transactions/index.js";
 import deleteTransaction from "../controllers/transactions/delete.js";
 import updateTransaction from "../controllers/transactions/update.js";
-import createTransactions from "../controllers/users/create.js";
+import createTransactions from "../controllers/transactions/create.js";
 import authenticate from "../middlewares/authenticate.js";
 import validateSchema from "../middlewares/validateSchema.js";
 import createTransactionSchema from "../request_schemas/transactions/create.js";

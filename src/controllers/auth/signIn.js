@@ -3,6 +3,7 @@ import chalk from "chalk";
 import { sessions, users } from "../../config/database.js";
 import { sessionCookieName } from "../../utils/constants.js";
 import { v4 as uuidv4 } from "uuid";
+import internalError from "../../utils/internalError.js";
 
 export default async function signIn(req, res) {
   const { email, password } = req.body;
@@ -24,12 +25,11 @@ export default async function signIn(req, res) {
     await sessions.insertOne({ userId: user._id, token });
 
     res.cookie(sessionCookieName, token, {
-      maxAge: 3600 * 4,
       httpOnly: true,
       sameSite: "lax"
     }).status(201).send("OK");
   }
   catch (error) {
-    console.log(error);
+    internalError(error, res);
   }
 }
