@@ -8,7 +8,7 @@ let db;
 
 try {
   db = client.db();
-  console.log(chalk.pink("Connected to db..."));
+  console.log(chalk.magenta("Connected to db..."));
 }
 catch (error) {
   console.log(chalk.red("Failed to connect to database!"));

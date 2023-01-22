@@ -1,14 +1,13 @@
+import chalk from "chalk";
 import { sessions, users } from "../config/database.js";
-import authenticateSchema from "../request_schemas/authenticate.js";
-import validate from "../helpers/validate.js";
+import getSessionCookie from "../utils/getSessionCookie.js";
 
 export default async function authenticate(req, res, next) {
-  const { authorization } = req.headers;
-  const token = authorization?.replace("Bearer ", "");
+  const token = getSessionCookie(req.headers.cookie);
 
-  const validRequest = validate({ token }, authenticateSchema, res);
-  if (!validRequest) {
-    return;
+  console.log(token);
+  if (!token) {
+    return res.sendStatus(401);
   }
 
   try {
@@ -18,10 +17,11 @@ export default async function authenticate(req, res, next) {
       return res.sendStatus(401);
     }
 
-    res.locals.user = await users.findOne({ _id: ObjectId(session.userId) });
+    res.locals.user = await users.findOne({ _id: session.userId });
   }
   catch (error) {
-
+    console.log(chalk.red("Error with authentication"));
+    console.log(error);
   }
 
   next();

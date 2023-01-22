@@ -3,6 +3,9 @@ import cors from "cors";
 import helmet from "helmet";
 import chalk from "chalk";
 import dotenv from "dotenv";
+import { authRouter } from "./routers/auth.js";
+import { transactionsRouter } from "./routers/transactions.js";
+import { usersRouter } from "./routers/users.js";
 dotenv.config();
 
 const app = express();
