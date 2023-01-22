@@ -3,7 +3,7 @@ import chalk from "chalk";
 import { sessions, users } from "../../config/database.js";
 import { sessionCookieName } from "../../utils/constants.js";
 import { v4 as uuidv4 } from "uuid";
-import internalError from "../../utils/internalError.js";
+import internalError from "../../utils/functions/internalError.js";
 
 export default async function signIn(req, res) {
   const { email, password } = req.body;
@@ -12,12 +12,12 @@ export default async function signIn(req, res) {
   try {
     const user = await users.findOne({ email });
     if (!user) {
-      return res.status(404).res("There was a problem with your credentials");
+      return res.status(404).send("There was a problem with your credentials");
     }
 
     const passwordIsValid = await compare(password, user.password);
     if (!passwordIsValid) {
-      return res.status(404).res("There was a problem with your credentials");
+      return res.status(404).send("There was a problem with your credentials");
     }
 
     const token = uuidv4();

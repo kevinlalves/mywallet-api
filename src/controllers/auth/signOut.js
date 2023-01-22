@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { sessions } from "../../config/database.js";
 import { sessionCookieName } from "../../utils/constants.js";
-import internalError from "../../utils/internalError.js";
+import internalError from "../../utils/functions/internalError.js";
 
 export default async function signOut(req, res) {
   const { user } = res.locals;

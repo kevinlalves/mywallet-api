@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { transactions } from "../../config/database.js";
-import formatDate from "../../utils/formatDate.js";
-import internalError from "../../utils/internalError.js";
+import formatDate from "../../utils/functions/formatDate.js";
+import internalError from "../../utils/functions/internalError.js";
 
 export default async function createTransactions(req, res) {
   const { user } = res.locals;
@@ -11,7 +11,7 @@ export default async function createTransactions(req, res) {
   try {
     await transactions.insertOne({
       description,
-      amountCents,
+      amountCents: Number(amountCents),
       userId: user._id,
       updatedAt: Date.now(),
       creationDate: formatDate(new Date())

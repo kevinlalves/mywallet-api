@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { sessions, users } from "../config/database.js";
-import getSessionCookie from "../utils/getSessionCookie.js";
+import getSessionCookie from "../utils/functions/getSessionCookie.js";
 
 export default async function authenticate(req, res, next) {
   const token = getSessionCookie(req.headers.cookie);

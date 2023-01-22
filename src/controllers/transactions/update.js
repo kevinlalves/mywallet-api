@@ -1,8 +1,8 @@
 import chalk from "chalk";
 import { transactions } from "../../config/database.js";
 import { ObjectId } from "mongodb";
-import formatDate from "../../utils/formatDate.js";
-import internalError from "../../utils/internalError.js";
+import formatDate from "../../utils/functions/formatDate.js";
+import internalError from "../../utils/functions/internalError.js";
 
 export default async function updateTransaction(req, res) {
   const { user } = res.locals;

@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { transactions } from "../../config/database.js";
 import { ObjectId } from "mongodb";
-import internalError from "../../utils/internalError.js";
+import internalError from "../../utils/functions/internalError.js";
 
 export default async function deleteTransaction(req, res) {
   const { user } = res.locals;
