@@ -1,7 +1,6 @@
 import chalk from "chalk";
 import { transactions } from "../../config/database.js";
 import { ObjectId } from "mongodb";
-import formatDate from "../../utils/functions/formatDate.js";
 import internalError from "../../utils/functions/internalError.js";
 
 export default async function updateTransaction(req, res) {
@@ -10,6 +9,13 @@ export default async function updateTransaction(req, res) {
   const { description, amountCents } = req.body;
 
   console.log(chalk.cyan(`PUT /transactions/${id}`));
+  try {
+    _id = ObjectId(id);
+  }
+  catch {
+    return res.sendStatus(404);
+  }
+
   try {
     const { matchedCount } = await transactions.updateOne({ userId: user._id, _id: ObjectId(id) }, {
       $set: {

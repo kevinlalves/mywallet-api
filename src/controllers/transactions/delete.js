@@ -6,10 +6,18 @@ import internalError from "../../utils/functions/internalError.js";
 export default async function deleteTransaction(req, res) {
   const { user } = res.locals;
   const { id } = req.params;
+  let _id;
 
   console.log(chalk.cyan(`DELETE /transactions/${id}`));
   try {
-    const { deletedCount } = await transactions.deleteOne({ userId: user._id, _id: ObjectId(id) });
+    _id = ObjectId(id);
+  }
+  catch {
+    return res.sendStatus(404);
+  }
+
+  try {
+    const { deletedCount } = await transactions.deleteOne({ userId: user._id, _id });
 
     if (!deletedCount) {
       return res.sendStatus(404);
