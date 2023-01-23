@@ -7,6 +7,7 @@ export default async function updateTransaction(req, res) {
   const { user } = res.locals;
   const { id } = req.params;
   const { description, amountCents } = req.body;
+  let _id;
 
   console.log(chalk.cyan(`PUT /transactions/${id}`));
   try {
@@ -17,7 +18,7 @@ export default async function updateTransaction(req, res) {
   }
 
   try {
-    const { matchedCount } = await transactions.updateOne({ userId: user._id, _id: ObjectId(id) }, {
+    const { matchedCount } = await transactions.updateOne({ userId: user._id, _id }, {
       $set: {
         description,
         amountCents,
