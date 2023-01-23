@@ -1,6 +1,5 @@
 import chalk from "chalk";
 import { sessions } from "../../config/database.js";
-import { sessionCookieName } from "../../utils/constants.js";
 import internalError from "../../utils/functions/internalError.js";
 
 export default async function signOut(req, res) {
@@ -10,7 +9,7 @@ export default async function signOut(req, res) {
   try {
     await sessions.deleteOne({ userId: user._id });
 
-    res.clearCookie(sessionCookieName).send("OK");
+    res.send("OK");
   }
   catch (error) {
     internalError(error, res);

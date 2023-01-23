@@ -1,7 +1,6 @@
 import { compare } from "bcrypt";
 import chalk from "chalk";
 import { sessions, users } from "../../config/database.js";
-import { sessionCookieName } from "../../utils/constants.js";
 import { v4 as uuidv4 } from "uuid";
 import internalError from "../../utils/functions/internalError.js";
 
@@ -24,10 +23,7 @@ export default async function signIn(req, res) {
     await sessions.deleteOne({ userId: user._id });
     await sessions.insertOne({ userId: user._id, token });
 
-    res.cookie(sessionCookieName, token, {
-      httpOnly: true,
-      sameSite: "lax"
-    }).status(201).send("OK");
+    res.status(201).json({ token });
   }
   catch (error) {
     internalError(error, res);
