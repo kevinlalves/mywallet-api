@@ -23,7 +23,7 @@ export default async function signIn(req, res) {
     await sessions.deleteOne({ userId: user._id });
     await sessions.insertOne({ userId: user._id, token });
 
-    res.status(201).json({ token });
+    res.status(201).json({ token, name: user.name });
   }
   catch (error) {
     internalError(error, res);

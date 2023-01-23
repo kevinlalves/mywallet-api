@@ -2,7 +2,8 @@ import chalk from "chalk";
 import { sessions, users } from "../config/database.js";
 
 export default async function authenticate(req, res, next) {
-  const { token } = req.headers;
+  const { authorization } = req.headers;
+  const token = authorization?.replace("Bearer ", "");
 
   if (!token) {
     return res.sendStatus(401);
